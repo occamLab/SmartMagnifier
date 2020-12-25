@@ -24,6 +24,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                 <state key="normal" title="Set Magnifier Target"/>
+                                <connections>
+                                    <action selector="selectMagnifierTarget:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9P7-8k-3yz"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="w83-70-gK8"/>
@@ -35,6 +38,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="138" y="134"/>
+        </scene>
+        <!--Target Selector-->
+        <scene sceneID="HjW-Pf-BJY">
+            <objects>
+                <viewController storyboardIdentifier="targetselector" id="oUC-wu-Bzq" customClass="TargetSelector" customModule="SmartMagnifier" customModuleProvider="target" sceneMemberID="viewController">
+                    <stackView key="view" opaque="NO" contentMode="scaleToFill" axis="vertical" id="nDJ-Yk-tOT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j7h-aJ-khq">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="790"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYh-al-km0">
+                                <rect key="frame" x="0.0" y="790" width="414" height="106"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                <state key="normal" title="Select Target"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OAc-10-5A5"/>
+                    </stackView>
+                    <connections>
+                        <outlet property="image" destination="j7h-aJ-khq" id="Ies-xn-QSo"/>
+                        <outlet property="imageView" destination="j7h-aJ-khq" id="Ldv-Jg-yFf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aAS-II-gfM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="583" y="933"/>
         </scene>
     </scenes>
 </document>

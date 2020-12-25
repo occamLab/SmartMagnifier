@@ -41,4 +41,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     func session(_: ARSession, didUpdate: ARFrame) {
         print("Got a new frame")
     }
+    
+    @IBAction func selectMagnifierTarget(_ sender: UIButton) {
+        guard let capturedFrame = sceneView.session.currentFrame else {
+            // display some sort of popover
+            return
+        }
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier:"targetselector") as? TargetSelector {
+            vc.arFrame = capturedFrame
+            vc.modalTransitionStyle = .crossDissolve;
+            vc.modalPresentationStyle = .overCurrentContext
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
 }
