@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8288F7F125A3A209005FC244 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8288F7F025A3A209005FC244 /* Plane.swift */; };
+		8288F7F425A3A2A1005FC244 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8288F7F325A3A2A1005FC244 /* Utilities.swift */; };
+		8288F7FB25A3A409005FC244 /* SceneKit Asset Catalog.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 8288F7FA25A3A409005FC244 /* SceneKit Asset Catalog.scnassets */; };
 		9883ECC225959B970014CC80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9883ECC125959B970014CC80 /* AppDelegate.swift */; };
 		9883ECC425959B970014CC80 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9883ECC325959B970014CC80 /* ViewController.swift */; };
 		9883ECC925959B970014CC80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9883ECC725959B970014CC80 /* Main.storyboard */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8288F7F025A3A209005FC244 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
+		8288F7F325A3A2A1005FC244 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		8288F7FA25A3A409005FC244 /* SceneKit Asset Catalog.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = "SceneKit Asset Catalog.scnassets"; sourceTree = "<group>"; };
 		9883ECBE25959B970014CC80 /* SmartMagnifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartMagnifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9883ECC125959B970014CC80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9883ECC325959B970014CC80 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +66,9 @@
 			children = (
 				9883ECC125959B970014CC80 /* AppDelegate.swift */,
 				9883ECC325959B970014CC80 /* ViewController.swift */,
+				8288F7F025A3A209005FC244 /* Plane.swift */,
+				8288F7FA25A3A409005FC244 /* SceneKit Asset Catalog.scnassets */,
+				8288F7F325A3A2A1005FC244 /* Utilities.swift */,
 				9883ECC725959B970014CC80 /* Main.storyboard */,
 				9883ECD72595A8DA0014CC80 /* TargetSelector.swift */,
 				9883ECCA25959B980014CC80 /* Assets.xcassets */,
@@ -127,6 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8288F7FB25A3A409005FC244 /* SceneKit Asset Catalog.scnassets in Resources */,
 				9883ECCE25959B980014CC80 /* LaunchScreen.storyboard in Resources */,
 				9883ECCB25959B980014CC80 /* Assets.xcassets in Resources */,
 				9883ECC925959B970014CC80 /* Main.storyboard in Resources */,
@@ -140,8 +150,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8288F7F425A3A2A1005FC244 /* Utilities.swift in Sources */,
 				9883ECC425959B970014CC80 /* ViewController.swift in Sources */,
 				9883ECC225959B970014CC80 /* AppDelegate.swift in Sources */,
+				8288F7F125A3A209005FC244 /* Plane.swift in Sources */,
 				9883ECD82595A8DA0014CC80 /* TargetSelector.swift in Sources */,
 				9883ECDB2595AB000014CC80 /* ImageExtensions.swift in Sources */,
 			);
@@ -293,6 +305,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 787TUDMR8Q;
 				INFOPLIST_FILE = SmartMagnifier/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -312,6 +325,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 787TUDMR8Q;
 				INFOPLIST_FILE = SmartMagnifier/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
