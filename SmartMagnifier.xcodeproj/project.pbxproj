@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C2C27CD516B07153D2EE66E /* Pods_SmartMagnifier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5173580B97AF7D889890D442 /* Pods_SmartMagnifier.framework */; };
 		8288F7F125A3A209005FC244 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8288F7F025A3A209005FC244 /* Plane.swift */; };
 		8288F7F425A3A2A1005FC244 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8288F7F325A3A2A1005FC244 /* Utilities.swift */; };
 		8288F7FB25A3A409005FC244 /* SceneKit Asset Catalog.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 8288F7FA25A3A409005FC244 /* SceneKit Asset Catalog.scnassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5173580B97AF7D889890D442 /* Pods_SmartMagnifier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartMagnifier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8288F7F025A3A209005FC244 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		8288F7F325A3A2A1005FC244 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		8288F7FA25A3A409005FC244 /* SceneKit Asset Catalog.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = "SceneKit Asset Catalog.scnassets"; sourceTree = "<group>"; };
@@ -32,6 +34,8 @@
 		9883ECCF25959B980014CC80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9883ECD72595A8DA0014CC80 /* TargetSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSelector.swift; sourceTree = "<group>"; };
 		9883ECDA2595AB000014CC80 /* ImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtensions.swift; sourceTree = "<group>"; };
+		B471CA6D1025A9514A5830EF /* Pods-SmartMagnifier.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartMagnifier.debug.xcconfig"; path = "Target Support Files/Pods-SmartMagnifier/Pods-SmartMagnifier.debug.xcconfig"; sourceTree = "<group>"; };
+		EBDAB01FC9FE01A87812F72E /* Pods-SmartMagnifier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartMagnifier.release.xcconfig"; path = "Target Support Files/Pods-SmartMagnifier/Pods-SmartMagnifier.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,17 +43,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C2C27CD516B07153D2EE66E /* Pods_SmartMagnifier.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D9A4E864B4FC77B820D7A71 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5173580B97AF7D889890D442 /* Pods_SmartMagnifier.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9883ECB525959B970014CC80 = {
 			isa = PBXGroup;
 			children = (
 				9883ECC025959B970014CC80 /* SmartMagnifier */,
 				9883ECBF25959B970014CC80 /* Products */,
+				ED5778AD23D847969FDA3AC2 /* Pods */,
+				3D9A4E864B4FC77B820D7A71 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +94,16 @@
 			path = SmartMagnifier;
 			sourceTree = "<group>";
 		};
+		ED5778AD23D847969FDA3AC2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B471CA6D1025A9514A5830EF /* Pods-SmartMagnifier.debug.xcconfig */,
+				EBDAB01FC9FE01A87812F72E /* Pods-SmartMagnifier.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -86,9 +111,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9883ECD225959B980014CC80 /* Build configuration list for PBXNativeTarget "SmartMagnifier" */;
 			buildPhases = (
+				3A49E7EF2F294A31BBFF6DCA /* [CP] Check Pods Manifest.lock */,
 				9883ECBA25959B970014CC80 /* Sources */,
 				9883ECBB25959B970014CC80 /* Frameworks */,
 				9883ECBC25959B970014CC80 /* Resources */,
+				50BF801D36A6A5A151BD33C2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -144,6 +171,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3A49E7EF2F294A31BBFF6DCA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SmartMagnifier-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		50BF801D36A6A5A151BD33C2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SmartMagnifier/Pods-SmartMagnifier-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SmartMagnifier/Pods-SmartMagnifier-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartMagnifier/Pods-SmartMagnifier-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9883ECBA25959B970014CC80 /* Sources */ = {
@@ -299,6 +368,7 @@
 		};
 		9883ECD325959B980014CC80 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B471CA6D1025A9514A5830EF /* Pods-SmartMagnifier.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -319,6 +389,7 @@
 		};
 		9883ECD425959B980014CC80 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EBDAB01FC9FE01A87812F72E /* Pods-SmartMagnifier.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
