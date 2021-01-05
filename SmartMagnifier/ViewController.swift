@@ -108,14 +108,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, Ta
         let (adjustedXBounds, adjustedZBounds) = adjustBounds(camera: didUpdate.camera, coreImage: coreImage, planeTransform: updatedMagnificationPlane.transform, initialXBounds: [c.x - e.x/2, c.x + e.x/2], y: c.y, initialZBounds: [c.z - e.z/2, c.z + e.z/2])
         
         // TODO: this breaks when we use horizontal planes
-        
         let vectors = getCornerVectors(camera: didUpdate.camera, coreImage: coreImage, planeTransform: updatedMagnificationPlane.transform, xBounds: adjustedXBounds, y: c.y, zBounds: adjustedZBounds)
 
         print(vectors)
         let cornerKeys = vectors.map { getPerspectiveCorrectionKey(v: $0, vs: vectors) }
         let perspectiveCorrection = CIFilter(name: "CIPerspectiveCorrection")!
         perspectiveCorrection.setValue(coreImage, forKey: kCIInputImageKey)
-        // TODO: need to calculate a rectangular section that encompasses the whole image plane by shrinking the extent of the plane
         for (cornerKey, ciVector) in zip(cornerKeys, vectors) {
             perspectiveCorrection.setValue(ciVector, forKey: cornerKey)
         }
@@ -131,13 +129,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, Ta
         
         // try some different shrinks
         // TODO: this should really be done with some sort of binary search
-        let shrinkProportions = [9/10.0, 8/10.0, 7/10.0, 6/10.0, 5/10.0, 2/10.0]
+        let shrinkProportions = [9/10.0, 8/10.0, 7/10.0, 6/10.0, 5/10.0, 2/10.0, 1/10.0]
         let xc = (initialXBounds[0] + initialXBounds[1])/2
         let zc = (initialZBounds[0] + initialZBounds[1])/2
         var bestXBounds = initialXBounds
         var bestZBounds = initialZBounds
         
-        // could shrink separately on each coordinate (distorts aspect ratio of plane though)
+        // could shrink separately on each coordinate.  We have to figure out some way to maintain aspect ratio though (it's not clear how it is being set now)
         for s in shrinkProportions {
             let proposedXBounds = [(initialXBounds[0] - xc)*Float(s) + xc, (initialXBounds[1] - xc)*Float(s) + xc]
             let proposedZBounds = [(initialZBounds[0] - zc)*Float(s) + zc, (initialZBounds[1] - zc)*Float(s) + zc]
