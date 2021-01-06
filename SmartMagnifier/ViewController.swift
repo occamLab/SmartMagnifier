@@ -95,7 +95,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, Ta
         // TODO: plane can merge with another plane, so might want to track that event happening
         for anchor in didUpdate.anchors {
             if anchor.identifier == magnificationPlane.identifier {
-                currentPlaneAnchor = anchor as! ARPlaneAnchor
+                currentPlaneAnchor = anchor as? ARPlaneAnchor
             }
         }
         guard let updatedMagnificationPlane = currentPlaneAnchor else {
