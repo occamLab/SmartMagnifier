@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,8 @@
 		8288F7F125A3A209005FC244 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8288F7F025A3A209005FC244 /* Plane.swift */; };
 		8288F7F425A3A2A1005FC244 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8288F7F325A3A2A1005FC244 /* Utilities.swift */; };
 		8288F7FB25A3A409005FC244 /* SceneKit Asset Catalog.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 8288F7FA25A3A409005FC244 /* SceneKit Asset Catalog.scnassets */; };
+		82B1BBE625A60D3D0007DB48 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82B1BBE525A60D3D0007DB48 /* opencv2.framework */; };
+		82B1BBEA25A60DC70007DB48 /* PerspectiveCorrection.mm in Sources */ = {isa = PBXBuildFile; fileRef = 82B1BBE925A60DC70007DB48 /* PerspectiveCorrection.mm */; };
 		9883ECC225959B970014CC80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9883ECC125959B970014CC80 /* AppDelegate.swift */; };
 		9883ECC425959B970014CC80 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9883ECC325959B970014CC80 /* ViewController.swift */; };
 		9883ECC925959B970014CC80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9883ECC725959B970014CC80 /* Main.storyboard */; };
@@ -25,6 +27,10 @@
 		8288F7F025A3A209005FC244 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		8288F7F325A3A2A1005FC244 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		8288F7FA25A3A409005FC244 /* SceneKit Asset Catalog.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = "SceneKit Asset Catalog.scnassets"; sourceTree = "<group>"; };
+		82B1BBE525A60D3D0007DB48 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		82B1BBE825A60DC60007DB48 /* SmartMagnifier-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmartMagnifier-Bridging-Header.h"; sourceTree = "<group>"; };
+		82B1BBE925A60DC70007DB48 /* PerspectiveCorrection.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PerspectiveCorrection.mm; sourceTree = "<group>"; };
+		82B1BBEC25A60E090007DB48 /* PerspectiveCorrection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerspectiveCorrection.h; sourceTree = "<group>"; };
 		9883ECBE25959B970014CC80 /* SmartMagnifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartMagnifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9883ECC125959B970014CC80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9883ECC325959B970014CC80 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82B1BBE625A60D3D0007DB48 /* opencv2.framework in Frameworks */,
 				3C2C27CD516B07153D2EE66E /* Pods_SmartMagnifier.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,6 +60,7 @@
 		3D9A4E864B4FC77B820D7A71 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				82B1BBE525A60D3D0007DB48 /* opencv2.framework */,
 				5173580B97AF7D889890D442 /* Pods_SmartMagnifier.framework */,
 			);
 			name = Frameworks;
@@ -90,6 +98,9 @@
 				9883ECCC25959B980014CC80 /* LaunchScreen.storyboard */,
 				9883ECCF25959B980014CC80 /* Info.plist */,
 				9883ECDA2595AB000014CC80 /* ImageExtensions.swift */,
+				82B1BBE925A60DC70007DB48 /* PerspectiveCorrection.mm */,
+				82B1BBEC25A60E090007DB48 /* PerspectiveCorrection.h */,
+				82B1BBE825A60DC60007DB48 /* SmartMagnifier-Bridging-Header.h */,
 			);
 			path = SmartMagnifier;
 			sourceTree = "<group>";
@@ -100,7 +111,6 @@
 				B471CA6D1025A9514A5830EF /* Pods-SmartMagnifier.debug.xcconfig */,
 				EBDAB01FC9FE01A87812F72E /* Pods-SmartMagnifier.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -137,6 +147,7 @@
 				TargetAttributes = {
 					9883ECBD25959B970014CC80 = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1230;
 					};
 				};
 			};
@@ -219,6 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82B1BBEA25A60DC70007DB48 /* PerspectiveCorrection.mm in Sources */,
 				8288F7F425A3A2A1005FC244 /* Utilities.swift in Sources */,
 				9883ECC425959B970014CC80 /* ViewController.swift in Sources */,
 				9883ECC225959B970014CC80 /* AppDelegate.swift in Sources */,
@@ -372,8 +384,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 787TUDMR8Q;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SmartMagnifier/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -382,6 +399,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.occamlab.SmartMagnifier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SmartMagnifier/SmartMagnifier-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -393,8 +412,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 787TUDMR8Q;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SmartMagnifier/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -403,6 +427,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.occamlab.SmartMagnifier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SmartMagnifier/SmartMagnifier-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

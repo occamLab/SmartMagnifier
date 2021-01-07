@@ -87,12 +87,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, Ta
     }
     
     func session(_: ARSession, didUpdate: ARFrame) {
+
         guard let magnificationPlane = magnificationPlane, let magnificationTarget = magnificationTarget else {
             return
         }
         var currentPlaneAnchor: ARPlaneAnchor?
         // search for the plane in the current frame
-        // TODO: plane can merge with another plane, so might want to track that event happening
+
         for anchor in didUpdate.anchors {
             if anchor.identifier == magnificationPlane.identifier {
                 currentPlaneAnchor = anchor as? ARPlaneAnchor
@@ -101,69 +102,21 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, Ta
         guard let updatedMagnificationPlane = currentPlaneAnchor else {
             return
         }
-        let coreImage = CIImage(cvPixelBuffer: didUpdate.capturedImage)
         let c = updatedMagnificationPlane.center
         let e = updatedMagnificationPlane.extent
         
-        let (adjustedXBounds, adjustedZBounds) = adjustBounds(camera: didUpdate.camera, coreImage: coreImage, planeTransform: updatedMagnificationPlane.transform, initialXBounds: [c.x - e.x/2, c.x + e.x/2], y: c.y, initialZBounds: [c.z - e.z/2, c.z + e.z/2])
-        
-        // TODO: this breaks when we use horizontal planes
-        let vectors = getCornerVectors(camera: didUpdate.camera, coreImage: coreImage, planeTransform: updatedMagnificationPlane.transform, xBounds: adjustedXBounds, y: c.y, zBounds: adjustedZBounds)
+        // TODO: perhaps we can go faster if we avoid this conversion
+        let img = UIImage(pixelBuffer: didUpdate.capturedImage)
+        let cornerPixels = projectPlaneCoordinate(camera: didUpdate.camera, planeTransform: updatedMagnificationPlane.transform, xBounds: [c.x - e.x/2, c.x + e.x/2], y: c.y, zBounds: [c.z - e.z/2, c.z + e.z/2])
+        let centerPixel = projectPlaneCoordinate(camera: didUpdate.camera, planeTransform: updatedMagnificationPlane.transform, xBounds: [c.x], y: c.y, zBounds: [c.z])
 
-        print(vectors)
-        let cornerKeys = vectors.map { getPerspectiveCorrectionKey(v: $0, vs: vectors) }
-        let perspectiveCorrection = CIFilter(name: "CIPerspectiveCorrection")!
-        perspectiveCorrection.setValue(coreImage, forKey: kCIInputImageKey)
-        for (cornerKey, ciVector) in zip(cornerKeys, vectors) {
-            perspectiveCorrection.setValue(ciVector, forKey: cornerKey)
-        }
-        let outputImage = perspectiveCorrection.outputImage!.oriented(.right)
-        let finalImage = UIImage(ciImage: outputImage)
-        // TODO: image extent and destination extent do not intersect (might need to adjust this final UIImage)
-        magnifiedImage.image = finalImage
-    }
+        let transformedImg = PerspectiveCorrection.perspectiveCorrection(img, e, cornerPixels, centerPixel[0])
 
-    func adjustBounds(camera: ARCamera, coreImage: CIImage, planeTransform: simd_float4x4, initialXBounds: [Float], y: Float, initialZBounds: [Float])->([Float], [Float]) {
-        let vertices = getCornerVectors(camera: camera, coreImage: coreImage, planeTransform: planeTransform, xBounds: initialXBounds, y: y, zBounds: initialZBounds)
-        // TODO: try to shrink bounds while maintaining the area of the intersection of the image plane and the vertices (see: https://math.stackexchange.com/questions/141798/two-quadrilaterals-intersection-area-special-case)
-        
-        // try some different shrinks
-        // TODO: this should really be done with some sort of binary search
-        let shrinkProportions = [9/10.0, 8/10.0, 7/10.0, 6/10.0, 5/10.0, 2/10.0, 1/10.0]
-        let xc = (initialXBounds[0] + initialXBounds[1])/2
-        let zc = (initialZBounds[0] + initialZBounds[1])/2
-        var bestXBounds = initialXBounds
-        var bestZBounds = initialZBounds
-        
-        // could shrink separately on each coordinate.  We have to figure out some way to maintain aspect ratio though (it's not clear how it is being set now)
-        for s in shrinkProportions {
-            let proposedXBounds = [(initialXBounds[0] - xc)*Float(s) + xc, (initialXBounds[1] - xc)*Float(s) + xc]
-            let proposedZBounds = [(initialZBounds[0] - zc)*Float(s) + zc, (initialZBounds[1] - zc)*Float(s) + zc]
-
-            if checkBoundValidity(camera: camera, coreImage: coreImage, planeTransform: planeTransform, proposedXBounds: proposedXBounds, y: y, proposedZBounds: proposedZBounds, originalVertices: vertices) {
-                bestXBounds = proposedXBounds
-                bestZBounds = proposedZBounds
-                print("shrinking", s)
-            }
-        }
-        
-        return (bestXBounds, bestZBounds)
+        // TODO: plane can merge with another plane, so might want to track that event happening
+        magnifiedImage.image = transformedImg
     }
     
-    func checkBoundValidity(camera: ARCamera, coreImage: CIImage, planeTransform: simd_float4x4, proposedXBounds: [Float], y: Float, proposedZBounds: [Float], originalVertices: [CIVector])->Bool {
-        var badBounds = false
-        let proposedVertices = getCornerVectors(camera: camera, coreImage: coreImage, planeTransform: planeTransform, xBounds: proposedXBounds, y: y, zBounds: proposedZBounds)
-        for (o, p) in zip(originalVertices, proposedVertices) {
-            let pOnScreen = p.x >= coreImage.extent.minX && p.x <= coreImage.extent.maxX && p.y >= coreImage.extent.minY && p.y <= coreImage.extent.maxY
-            let oOnScreen  = o.x >= coreImage.extent.minX && o.x <= coreImage.extent.maxX && o.y >= coreImage.extent.minY && o.y <= coreImage.extent.maxY
-            if o != p && (pOnScreen || oOnScreen) {
-                badBounds = true
-            }
-        }
-        return !badBounds
-    }
-    
-    func getCornerVectors(camera: ARCamera, coreImage: CIImage, planeTransform: simd_float4x4, xBounds: [Float], y:Float, zBounds: [Float])->[CIVector] {
+    func projectPlaneCoordinate(camera: ARCamera, planeTransform: simd_float4x4, xBounds: [Float], y:Float, zBounds: [Float])->[CGPoint] {
         var corners : [simd_float4] = []
         for x in xBounds {
             for z in zBounds {
@@ -176,17 +129,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, Ta
             }
             createdCorners = true
         }
-        var vectors : [CIVector] = []
+        var pixelCoords : [CGPoint] = []
         for corner in corners {
             let cameraCoordinates = camera.transform.inverse * corner
             let cameraCoordinatesCorrected = simd_float3(cameraCoordinates.x, -cameraCoordinates.y, -cameraCoordinates.z)
             let homogeneousPixelCoordinates = camera.intrinsics * cameraCoordinatesCorrected
             let pixelCoord = CGPoint(x: CGFloat(homogeneousPixelCoordinates.x / homogeneousPixelCoordinates.z), y: CGFloat(homogeneousPixelCoordinates.y / homogeneousPixelCoordinates.z))
-            vectors.append(pointToVector(pixelCoord, image: coreImage))
+            pixelCoords.append(pixelCoord)
         }
-        return vectors
+        return pixelCoords
     }
-    
+
     func getPerspectiveCorrectionKey(v: CIVector, vs: [CIVector])->String {
         var returnValue = "input"
         let ySorted = (vs.map { $0.y }).sorted()
