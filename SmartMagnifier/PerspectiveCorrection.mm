@@ -72,6 +72,8 @@
     destPoints[3] = cv::Point2f(destCVImg.rows-1,destCVImg.cols-1);
     
     // TODO: this is giving us a transform that positions the entire plane in the image, but only renders the part that is visible.  This results in the visible portion being quite small if you are close up to the plane and the plane is large.  We could do something like make the image higher resolution when this situation occurs (although it might slow down various conversions).  Alternatively we could contract the source points until they fit around the image (this will be complicated geometrically).
+    
+    // TODO: another approach is to figure out where on the plane the region of interest lies and create the destination points based on that (the destination points will no longer be a rectangle)
     cv::Mat perspectiveTransform = cv::getPerspectiveTransform(sourcePoints, destPoints);
 
     // grab ROI from image that contains the plane (rectangular bounding box), do the mapping and then throw away the part that is not part of the plane (this last part will take some math... maybe check out source code)
